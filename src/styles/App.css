@@ -1,0 +1,79 @@
+.App {
+    text-align: center;
+}
+
+.App-header {
+    /*background-color: #282c34;*/
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    /*font-size: calc(10px + 2vmin);*/
+    /*color: white;*/
+}
+
+.app-menubar {
+    /*position: absolute;*/
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+}
+
+.search-bar-cmp {
+    flex: 1;
+}
+
+.app-body {
+    background-color: #ececec;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 50vh;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.table-title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
+
+.table-el {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+}
+
+.table-el td,
+.table-el th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-el tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-el tr:hover {
+    background-color: #ddd;
+}
+
+.table-el th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+}
