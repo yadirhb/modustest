@@ -1,25 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mapStateToProps, dispatchProps } from './CartComponent';
+import cartActions from '../redux/actions/cart';
+import itemActions from '../redux/actions/items';
 
 class ProductTable extends React.PureComponent {
     constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+        super(props);
+        console.log("PROPS", props)
         this.state = { //state is by default an object
-            items: [
-                { id: 0, name: 'Wasif', price: 21, sector: 'wasif@email.com' },
-                { id: 2, name: 'Ali', price: 19, sector: 'ali@email.com' },
-                { id: 3, name: 'Saad', price: 16, sector: 'saad@email.com' },
-                { id: 4, name: 'Asad', price: 25, sector: 'asad@email.com' }
-            ]
+            items: props.items
         }
+    }
+
+    componentDidMount() {
+        this.props.gitItems();
     }
 
     handleOnRemoveProduct() {
 
     }
 
-    renderTableHeader() {        
+    renderTableHeader() {
         return (
             <thead>
                 <tr>
@@ -33,11 +34,12 @@ class ProductTable extends React.PureComponent {
     }
 
     renderTableData() {
-        const {addToCart, removeFromCart} = this.props;
+        const { addToCart, removeFromCart, items } = this.props;
+        console.log("ASA", items)
         return (
             <tbody>
                 {
-                    this.state.items.map((item, index) => {
+                    items.map((item, index) => {
                         const { id, name, price, sector } = item //destructuring
                         return (
                             <tr key={id}>
@@ -53,16 +55,45 @@ class ProductTable extends React.PureComponent {
         );
     }
 
+    renderMessage(message) {
+        return (
+            <tbody>
+                <tr>
+                    <td colSpan="4">
+                        <p>{message}</p>
+                    </td>
+                </tr>
+            </tbody>
+        );
+    }
+
     render() {
+        const { items, error, loadingItems } = this.props;
+        let message = error;
+        if(items.length == 0) message = "There is no items";
+        if(loadingItems) message = "Searching...";
         return (
             <div className="wrapper" style={{ flex: 2 }}>
                 <table className="table-el">
                     {this.renderTableHeader()}
-                    {this.renderTableData()}
+                    {!message ? this.renderTableData() : this.renderMessage(message)}
                 </table>
             </div>
         );
     }
 }
+
+const mapStateToProps = ({ cart, items }) => ({
+    cart: Object.values(cart.data),
+    cartError: cart.error,
+    items: Object.values(items.data),
+    loadingItems: items.loading
+});
+
+const dispatchProps = dispatch => ({
+    gitItems: () => dispatch({ type: itemActions.GET_ITEMS }),
+    addToCart: (item) => dispatch({ type: cartActions.ADD_TO_CART, product: item }),
+    removeFromCart: (item, all) => dispatch({ type: cartActions.REMOVE_FROM_CART, product: item, all }),
+});
 
 export default connect(mapStateToProps, dispatchProps)(ProductTable);

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import cartActions from '../redux/actions/cart';
 
 class CartComponent extends React.PureComponent {
-
-
     renderTableData() {
         const { cart, addToCart, removeFromCart } = this.props;
         return (
@@ -41,7 +39,11 @@ class CartComponent extends React.PureComponent {
     }
 
     render() {
-        const { cart } = this.props;
+        const { cart, cartError } = this.props;
+
+        if(cartError) {
+            alert(cartError);
+        }
 
         if(cart.length == 0) {
             return (
@@ -78,6 +80,7 @@ class CartComponent extends React.PureComponent {
 
 export const mapStateToProps = ({ cart }) => ({
     cart: Object.values(cart.data),
+    cartError : cart.error
 });
 
 export const dispatchProps = dispatch => ({

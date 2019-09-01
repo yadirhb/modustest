@@ -12,7 +12,7 @@ function* addProductToCart(action) {
     const { data } = store.getState().cart;
 
     if (product) {
-        if (Object.keys(data).length < 5) { // Allows up to 5 different products to be selected.
+        if (Object.keys(data).length < 5 || data[product.id]) { // Allows up to 5 different products to be selected.
             let sum = 0;
             Object.values(data).forEach(item => sum += item.amount);
             if (sum < 10) { // Allows up to a maximimum of 10 different items in total to be selected
@@ -20,15 +20,15 @@ function* addProductToCart(action) {
                     yield put({ type: constants.ADD_LOCAL_CART, data: product });
                 } else {
                     // This should sets an error state in here ... 
-                    alert("You cannot add more than 3 items of the same type.")
+                    yield put({ type: constants.ADD_TO_CART_FAIL, error: "You cannot add more than 3 items of the same type." });
                 }
             } else {
                 // This should sets an error state in here ... 
-                alert("You can select only a maximum of 10 items.")    
+                yield put({ type: constants.ADD_TO_CART_FAIL, error: "You can select only a maximum of 10 items." });
             }
         } else {
             // This should sets an error state in here ... 
-            alert("You cannot select more than 5 different items.")
+            yield put({ type: constants.ADD_TO_CART_FAIL, error: "You cannot select more than 5 different items." });
         }
     }
 }
