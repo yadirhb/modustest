@@ -2,6 +2,37 @@
     text-align: center;
 }
 
+/* Portrait */
+@media screen and (orientation:portrait) {
+    /* Portrait styles here */
+    .app-body {
+        background-color: #ececec;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+ }
+ /* Landscape */
+ @media screen and (orientation:landscape) {
+    /* Landscape styles here */
+    .app-body {
+        background-color: #ececec;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+    }
+ }
+
+.wrapper {
+    padding: 2px;
+    display: flex;
+    flex:1;
+}
+
+.list{
+    flex-direction: column;
+}
+
 .App-header {
     /*background-color: #282c34;*/
     background-color: red;
@@ -15,19 +46,23 @@
     /*position: absolute;*/
     display: flex;
     flex-direction: row;
-    height: 40px;
+    justify-content: flex-end;
+    background-color: blue;
+}
+
+.app-menubar-button {
+    margin: 2px 5px;
 }
 
 .search-bar-cmp {
     flex: 1;
+    padding: 5px;
 }
 
-.app-body {
-    background-color: #ececec;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    height: 50vh;
+.search-bar-cmp input {
+    width: 80%;
+    height: 30px;
+    font-size: 20px;
 }
 
 .App-link {

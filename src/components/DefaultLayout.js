@@ -2,22 +2,41 @@ import React from 'react';
 import '../styles/App.css';
 import ProductTable from './ProductTable';
 import SearchBar from './SearchBar';
+import MenuBar from './MenuBar';
+import CartComponent from './CartComponent';
 
-function DefaultLayer(props) {
-    return (
-        <div className="App">
-        <header className="App-header">
-            <div className="app-menubar">
-                <span>A</span>
-                <span>B</span>
+class DefaultLayer extends React.PureComponent {
+
+    constructor(props) {
+        super(props);
+        this.state = { showCart: props.showCart };
+    }
+
+    toggleCartOnClick = () => {
+        this.setState({ showCart: !this.state.showCart });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <MenuBar>
+                        {[
+                            {
+                                text: "Cart",
+                                click: this.toggleCartOnClick
+                            }
+                        ]}
+                    </MenuBar>
+                    <SearchBar />
+                </header>
+                <div className="app-body">
+                    <ProductTable />
+                    {this.state.showCart && <CartComponent />}
+                </div>
             </div>
-            <SearchBar/>
-        </header>
-        <div className="app-body">
-            <ProductTable/>
-        </div>
-        </div>
-    );
+        );
+    }
 }
-                    
+
 export default DefaultLayer;

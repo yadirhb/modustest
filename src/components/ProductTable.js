@@ -1,51 +1,68 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, dispatchProps } from './CartComponent';
 
 class ProductTable extends React.PureComponent {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = { //state is by default an object
             items: [
-                { id: 1, name: 'Wasif', age: 21, email: 'wasif@email.com' },
-                { id: 2, name: 'Ali', age: 19, email: 'ali@email.com' },
-                { id: 3, name: 'Saad', age: 16, email: 'saad@email.com' },
-                { id: 4, name: 'Asad', age: 25, email: 'asad@email.com' }
+                { id: 0, name: 'Wasif', price: 21, sector: 'wasif@email.com' },
+                { id: 2, name: 'Ali', price: 19, sector: 'ali@email.com' },
+                { id: 3, name: 'Saad', price: 16, sector: 'saad@email.com' },
+                { id: 4, name: 'Asad', price: 25, sector: 'asad@email.com' }
             ]
         }
     }
 
-    renderTableHeader() {
-        let header = Object.keys(this.state.items[0])
-        return header.map((key, index) => {
-            return <th key={index} > {key.toUpperCase()} </th>
-        })
+    handleOnRemoveProduct() {
+
+    }
+
+    renderTableHeader() {        
+        return (
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>SECTOR</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+        );
     }
 
     renderTableData() {
-        return this.state.items.map((student, index) => {
-            const { id, name, age, email } = student //destructuring
-            return (
-                <tr key={id}>
-                    <td>{id}</td>
-                    <td>{name}</td>
-                    <td>{age}</td>
-                    <td>{email}</td>
-                </tr>
-            );
-        });
+        const {addToCart, removeFromCart} = this.props;
+        return (
+            <tbody>
+                {
+                    this.state.items.map((item, index) => {
+                        const { id, name, price, sector } = item //destructuring
+                        return (
+                            <tr key={id}>
+                                <td>{name}</td>
+                                <td>{price}</td>
+                                <td>{sector}</td>
+                                <td><button onClick={() => addToCart(item)}>+</button> <button onClick={() => removeFromCart(item, false)}>-</button></td>
+                            </tr>
+                        );
+                    })
+                }
+            </tbody>
+        );
     }
-                
+
     render() {
         return (
-            <div>
+            <div className="wrapper" style={{ flex: 2 }}>
                 <table className="table-el">
-                    <tbody>
-                        <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                    </tbody>
+                    {this.renderTableHeader()}
+                    {this.renderTableData()}
                 </table>
             </div>
         );
     }
 }
 
-export default ProductTable;
+export default connect(mapStateToProps, dispatchProps)(ProductTable);
