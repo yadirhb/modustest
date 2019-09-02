@@ -35,7 +35,6 @@
 
 .App-header {
     /*background-color: #282c34;*/
-    background-color: red;
     display: flex;
     flex-direction: column;
     /*font-size: calc(10px + 2vmin);*/
@@ -57,12 +56,18 @@
 .search-bar-cmp {
     flex: 1;
     padding: 5px;
+    flex-direction: row;
 }
 
 .search-bar-cmp input {
     width: 80%;
     height: 30px;
     font-size: 20px;
+}
+
+.search-bar-cmp button {
+    height: 35px;
+    margin-top: -10px;
 }
 
 .App-link {

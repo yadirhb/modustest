@@ -4,20 +4,8 @@ import cartActions from '../redux/actions/cart';
 import itemActions from '../redux/actions/items';
 
 class ProductTable extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        console.log("PROPS", props)
-        this.state = { //state is by default an object
-            items: props.items
-        }
-    }
-
     componentDidMount() {
-        this.props.gitItems();
-    }
-
-    handleOnRemoveProduct() {
-
+        this.props.getItems();
     }
 
     renderTableHeader() {
@@ -35,7 +23,7 @@ class ProductTable extends React.PureComponent {
 
     renderTableData() {
         const { addToCart, removeFromCart, items } = this.props;
-        console.log("ASA", items)
+
         return (
             <tbody>
                 {
@@ -70,8 +58,9 @@ class ProductTable extends React.PureComponent {
     render() {
         const { items, error, loadingItems } = this.props;
         let message = error;
-        if(items.length == 0) message = "There is no items";
-        if(loadingItems) message = "Searching...";
+        
+        if (items.length == 0 && !error) message = "There is no items";
+        if (loadingItems) message = "Searching...";
         return (
             <div className="wrapper" style={{ flex: 2 }}>
                 <table className="table-el">
@@ -87,11 +76,12 @@ const mapStateToProps = ({ cart, items }) => ({
     cart: Object.values(cart.data),
     cartError: cart.error,
     items: Object.values(items.data),
+    error: items.error,
     loadingItems: items.loading
 });
 
 const dispatchProps = dispatch => ({
-    gitItems: () => dispatch({ type: itemActions.GET_ITEMS }),
+    getItems: () => dispatch({ type: itemActions.GET_ITEMS }),
     addToCart: (item) => dispatch({ type: cartActions.ADD_TO_CART, product: item }),
     removeFromCart: (item, all) => dispatch({ type: cartActions.REMOVE_FROM_CART, product: item, all }),
 });

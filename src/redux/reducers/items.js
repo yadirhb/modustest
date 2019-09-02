@@ -13,7 +13,13 @@ export default (state = initialState, action) => {
         case constants.GET_ITEMS_SUCCESS:
             return { ...state, loading: false, data: { ...state.data, ...action.data } };
         case constants.GET_ITEMS_FAIL:
-            return { ...state, loading: false, error: action.error };        
+            return { ...state, loading: false, error: action.error };
+        case constants.SEARCH_ITEMS_REQUEST:
+            return { ...state, loading: true, error: undefined, data: {}};
+        case constants.SEARCH_ITEMS_SUCCESS:
+            return { ...state, loading: false, data: { ...action.data } };
+        case constants.SEARCH_ITEMS_FAIL:
+                return { ...state, loading: false, error: action.error };
         default:
             return state;
     }

@@ -19,7 +19,22 @@ function* items(action) {
 }
 
 function* searchItems(action) {
-    yield put({ type: constants.GET_ITEMS_REQUEST });
+    yield put({ type: constants.SEARCH_ITEMS_REQUEST });
+
+    try {
+        const data = yield call(itemsServiceMock.search, action.criteria);        
+        yield put({ type: constants.SEARCH_ITEMS_SUCCESS, data: data.map((item, key) => !item.id ? { ...item, id: key } : item) });
+    } catch (error) {
+
+        let errorMessage = 'Error when retrieving items';
+        if (error.message.includes("504")) {
+            errorMessage = "Error with the criteria. Must be alphanum."
+        } else if (error && error.message) {
+            errorMessage = error.message;
+        }
+
+        yield put({ type: constants.SEARCH_ITEMS_FAIL, error: errorMessage });
+    }
 }
 
 export default [
