@@ -1,0 +1,119 @@
+.App {
+    text-align: center;
+}
+
+/* Portrait */
+@media screen and (orientation:portrait) {
+    /* Portrait styles here */
+    .app-body {
+        background-color: #ececec;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+ }
+ /* Landscape */
+ @media screen and (orientation:landscape) {
+    /* Landscape styles here */
+    .app-body {
+        background-color: #ececec;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+    }
+ }
+
+.wrapper {
+    padding: 2px;
+    display: flex;
+    flex:1;
+}
+
+.list{
+    flex-direction: column;
+}
+
+.App-header {
+    /*background-color: #282c34;*/
+    display: flex;
+    flex-direction: column;
+    /*font-size: calc(10px + 2vmin);*/
+    /*color: white;*/
+}
+
+.app-menubar {
+    /*position: absolute;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: blue;
+}
+
+.app-menubar-button {
+    margin: 2px 5px;
+}
+
+.search-bar-cmp {
+    flex: 1;
+    padding: 5px;
+    flex-direction: row;
+}
+
+.search-bar-cmp input {
+    width: 80%;
+    height: 30px;
+    font-size: 20px;
+}
+
+.search-bar-cmp button {
+    height: 35px;
+    margin-top: -10px;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.table-title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
+
+.table-el {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+}
+
+.table-el td,
+.table-el th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-el tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-el tr:hover {
+    background-color: #ddd;
+}
+
+.table-el th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+}
